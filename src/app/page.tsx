@@ -1,5 +1,6 @@
+import HeroSection from "@components/screen/HeroSection";
 import { HeroParallax } from "@components/ui/hero/parallax";
-import Image from "next/image";
+import { TracingBeam } from "@components/ui/scrollBars/TracingBeam";
 
 export default function Home() {
 
@@ -51,8 +52,11 @@ export default function Home() {
     },
   ];
   return (
-    <main className="flex min-h-screen">
-      <HeroParallax products={products} />
+    <main className="flex flex-col min-h-screen">
+      <TracingBeam className="px-1">
+        <HeroSection />
+        <HeroParallax products={products} />
+      </TracingBeam>
     </main>
   );
 }
