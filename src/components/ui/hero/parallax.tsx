@@ -19,9 +19,9 @@ export const HeroParallax = ({
         thumbnail: string;
     }[];
 }) => {
-    const firstRow = products.slice(0, 5);
-    const secondRow = products.slice(5, 10);
-    const thirdRow = products.slice(10, 15);
+    const firstRow = products.slice(0, 3);
+    const secondRow = products.slice(3, 6);
+    const thirdRow = products.slice(6, 10);
     const ref = React.useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -57,7 +57,7 @@ export const HeroParallax = ({
     return (
         <div
             ref={ref}
-            className="h-[250vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+            className="h-[320vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
         >
             <Header />
             <motion.div
@@ -67,21 +67,22 @@ export const HeroParallax = ({
                     translateY,
                     opacity,
                 }}
-                className=""
             >
                 <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
                     {firstRow.map((product) => (
                         <ThreeDCard
                             product={product}
                             key={product.title}
+                            translate={translateX}
                         />
                     ))}
                 </motion.div>
-                <motion.div className="flex flex-row  mb-20 space-x-20 ">
+                <motion.div className="flex flex-row space-x-20 mb-20">
                     {secondRow.map((product) => (
                         <ThreeDCard
                             product={product}
                             key={product.title}
+                            translate={translateXReverse}
                         />
                     ))}
                 </motion.div>
@@ -90,6 +91,7 @@ export const HeroParallax = ({
                         <ThreeDCard
                             product={product}
                             key={product.title}
+                            translate={translateX}
                         />
                     ))}
                 </motion.div>

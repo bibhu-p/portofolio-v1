@@ -1,18 +1,19 @@
 "use client";
-
+import { MotionValue } from "framer-motion";
 import Image from "next/image";
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "@components/ui/cards/3d-card";
 
- const ThreeDCard = ({ product }: {
+const ThreeDCard = ({ product, translate }: {
     product: {
         title: string;
         link: string;
         thumbnail: string;
     }
+    translate: MotionValue<number>;
 }) => {
     return (
-        <CardContainer className="inter-var">
+        <CardContainer className="inter-var" translate={translate}>
             <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
                 <CardItem
                     translateZ="50"
@@ -38,6 +39,7 @@ import { CardBody, CardContainer, CardItem } from "@components/ui/cards/3d-card"
                 </CardItem>
             </CardBody>
         </CardContainer>
+
     );
 }
 
