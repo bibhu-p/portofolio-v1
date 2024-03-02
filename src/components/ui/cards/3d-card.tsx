@@ -8,6 +8,7 @@ import React, {
   useRef,
   useEffect,
 } from "react";
+import { motion, MotionValue } from "framer-motion";
 
 const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -17,10 +18,12 @@ export const CardContainer = ({
   children,
   className,
   containerClassName,
+  translate
 }: {
   children?: React.ReactNode;
   className?: string;
   containerClassName?: string;
+  translate: MotionValue<number>;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
@@ -45,33 +48,43 @@ export const CardContainer = ({
     containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
   };
   return (
-    <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
-      <div
-        className={cn(
-          "py-20 flex items-center justify-center",
-          containerClassName
-        )}
-        style={{
-          perspective: "1000px",
-        }}
-      >
+    <motion.div
+      style={{
+        x: translate,
+      }}
+      whileHover={{
+        y: -20,
+      }}
+      className="group/product h-96 w-[30rem] relative flex-shrink-0">
+
+      <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
         <div
-          ref={containerRef}
-          onMouseEnter={handleMouseEnter}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
           className={cn(
-            "flex items-center justify-center relative transition-all duration-200 ease-linear",
-            className
+            "py-20 flex items-center justify-center",
+            containerClassName
           )}
           style={{
-            transformStyle: "preserve-3d",
+            perspective: "1000px",
           }}
         >
-          {children}
+          <div
+            ref={containerRef}
+            onMouseEnter={handleMouseEnter}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className={cn(
+              "flex items-center justify-center relative transition-all duration-200 ease-linear",
+              className
+            )}
+            style={{
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {children}
+          </div>
         </div>
-      </div>
-    </MouseEnterContext.Provider>
+      </MouseEnterContext.Provider>
+    </motion.div>
   );
 };
 
